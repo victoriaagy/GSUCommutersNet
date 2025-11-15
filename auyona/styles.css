@@ -1,0 +1,28 @@
+body{
+    background-image: url('commuters_hub_background');
+    background-repeat: no-repeat;
+    background-attachment: fixed;  
+    background-size: cover;
+}
+
+.header{
+    background-color: blue;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.top_part{
+    background-color: navy;
+    
+}
+
+.link1 {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    text-align: center;
+    border-color:green;
+    border-radius: 50px;
+    border-width: 3px;
+    border-bottom-left-radius: 10px;
+    border-top-right-radius: 10px;
+    
+
+}

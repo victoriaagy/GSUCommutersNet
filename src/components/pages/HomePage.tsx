@@ -47,7 +47,7 @@ export function HomePage({ onNavigate }: HomePageProps) {
   <div
     className="absolute inset-0 -z-10 blur-md opacity-50"
     style={{
-      backgroundImage: "url('https://news.gsu.edu/files/2024/08/20190814_MLB_Science_Center_2_night_061.jpg')",
+      backgroundImage: `url(${backgroundImage})`,
       backgroundSize: "cover",
       backgroundPosition: "center",
     }}
