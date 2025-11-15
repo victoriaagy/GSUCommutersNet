@@ -1,11 +1,11 @@
+Platform for Commuter Students at GSU on the Atlanta Campus Theme: Blue, White, Black
 
-  # Study Spots Website Prototype
+Halima- Home Authentication flow mockup (GSU login page + navigation) HTML/CSS or Figma
 
-  This is a code bundle for Study Spots Website Prototype. The original project is available at https://www.figma.com/design/tRxbfRlw0Q7Jy5Y8YVACnq/Study-Spots-Website-Prototype.
+Victoria - Study Spots List + filters (quiet/active), layout of campus areas JavaScript, Figma
 
-  ## Running the code
+Auyona - Events + Map Display campus events + clickable Google Map Python + API
 
-  Run `npm i` to install the dependencies.
+Alvertha -Profile GSU email display + editable user info page HTML/CSS
 
-  Run `npm run dev` to start the development server.
-  
+Cor’layshia - Social Mock chat/discussion layout + post sample messages HTML/CSS, Python optional
