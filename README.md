@@ -1,11 +1,15 @@
-Platform for Commuter Students at GSU on the Atlanta Campus Theme: Blue, White, Black
+# CommutersNet
+ Platform for Commuter Students at GSU on the Atlanta Campus
+    Theme: Blue, White, Black 
 
-Halima- Home Authentication flow mockup (GSU login page + navigation) HTML/CSS or Figma
+Halima- Home
+Authentication flow mockup (GSU login page + navigation)
+HTML/CSS or Figma
 
-Victoria - Study Spots List + filters (quiet/active), layout of campus areas JavaScript, Figma
+Victoria - Study Spots
+List + filters (quiet/active), layout of campus areas
+JavaScript, Figma
 
-Auyona - Events + Map Display campus events + clickable Google Map Python + API
-
-Alvertha -Profile GSU email display + editable user info page HTML/CSS
-
-Cor’layshia - Social Mock chat/discussion layout + post sample messages HTML/CSS, Python optional
+Auyona - Events + Map
+Display campus events + clickable Google Map
+Python + API
