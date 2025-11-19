@@ -98,6 +98,40 @@ const studySpots: StudySpot[] = [
     type: 'Active',
     description: 'Modern collaborative space with digital media atmosphere',
     imageUrl: 'https://cmii.gsu.edu/files/2024/07/BM5A8596-1.jpg'
-  },
-  
+  }
 ];
+
+
+export default function App() {
+  const [currentPage, setCurrentPage] = useState<string>('home');
+
+  const handleNavigate = (page: string) => {
+    setCurrentPage(page);
+  };
+
+  const renderPage = () => {
+    switch (currentPage) {
+      case 'home':
+        return <HomePage onNavigate={handleNavigate} />;
+      case 'events':
+        return <EventsPage />;
+      case 'maps':
+        return <MapsPage />;
+      case 'profile':
+        return <ProfilePage />;
+      case 'social':
+        return <SocialPage />;
+      case 'study-spots':
+        return <StudySpotsPage studySpots={studySpots} />;
+      default:
+        return <HomePage onNavigate={handleNavigate} />;
+    }
+  };
+
+  return (
+    <div className="min-h-screen bg-white">
+      <Navigation currentPage={currentPage} onNavigate={handleNavigate} />
+      {renderPage()}
+    </div>
+  );
+}
