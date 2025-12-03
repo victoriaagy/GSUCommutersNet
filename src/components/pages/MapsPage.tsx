@@ -1,5 +1,6 @@
 import { MapPin, Car, Coffee, Utensils, BookOpen } from 'lucide-react';
 import { Card } from '../ui/card';
+import GoogleMap from '../GoogleMap';
 
 const locations = [
   {
@@ -56,14 +57,9 @@ export function MapsPage() {
       </div>
 
       {/* Map Placeholder */}
-
-      <Card className="p-8 mb-8 bg-gray-100 text-center shadow-md">
-        <MapPin className="h-12 w-12 mx-auto mb-4 text-blue-600" />
-        <h3 className="text-black mb-2">Interactive Campus Map</h3>
-        <p className="text-gray-600">
-          Interactive map coming soon. View key locations below.
-        </p>
-      </Card>
+      <div className='mb-8'>
+        <GoogleMap />
+      </div>
 
       {/* Locations Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
