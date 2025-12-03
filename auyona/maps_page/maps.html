@@ -20,10 +20,23 @@
         <!--Placeholder Map-->
         <!--Find lat and lng of GSU-->
         <!--Get map to show up-->
-        <script 
+        <script> 
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDJZU7vW5MA3fRfS_eN_pEt3E6ZfuTHLuc&callback=initMap" async defer>
-            </script>
-        
+            
+            function initMap() {
+                const gsu = {lat: 33.7537, lng: -84.3858}/*gsu coordinates*/
+                const googleMap = new google.maps.Map(document.getElementById("googleMap"), { 
+                    zoom: 16,
+                    center: gsu,
+                });
+                //
+                new google.maps.Marker({
+                    position: gsu,
+                    map: googleMap,
+                    title: 'Georgia State University',
+               });
+            }  
+             </script>
         <h4 style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;"><a href="events.html">Click here to see fun places on campus!</a></h4>
     </body>
 

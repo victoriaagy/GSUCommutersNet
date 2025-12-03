@@ -44,6 +44,8 @@ const locations = [
   }
 ];
 
+
+
 export function MapsPage() {
   return (
     <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -54,6 +56,7 @@ export function MapsPage() {
       </div>
 
       {/* Map Placeholder */}
+
       <Card className="p-8 mb-8 bg-gray-100 text-center shadow-md">
         <MapPin className="h-12 w-12 mx-auto mb-4 text-blue-600" />
         <h3 className="text-black mb-2">Interactive Campus Map</h3>
