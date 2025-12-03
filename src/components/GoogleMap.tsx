@@ -45,7 +45,7 @@ export default function GoogleMap() {
     };
   }, []);
 
-  // ✅ THIS is the real return of the component
+  
   return (
     <div
       ref={mapRef}
