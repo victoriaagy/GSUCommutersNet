@@ -1,7 +1,23 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useImperativeHandle, forwardRef } from 'react';
 
-export default function GoogleMap() {
+export type MapHandle = {
+  moveToLocation: (lat: number, lng: number) => void;
+};
+
+const GoogleMap = forwardRef<MapHandle>((props, ref) => {
   const mapRef = useRef<HTMLDivElement | null>(null);
+  const mapInstance = useRef<google.maps.Map | null>(null);
+
+  useImperativeHandle(ref, () => ({
+    moveToLocation(lat: number, lng: number) {
+      if (mapInstance.current) {
+        mapInstance.current.panTo({ lat, lng });
+        mapInstance.current.setZoom(18);
+      }
+    },
+  }));
+
+
 
   useEffect(() => {
     const script = document.createElement("script");
@@ -23,19 +39,19 @@ export default function GoogleMap() {
 
       new google.maps.marker.AdvancedMarkerElement({
         position: gsu,
-        map,
+        map: mapInstance.current,
         title: 'Georgia State University',
       });
 
       new google.maps.marker.AdvancedMarkerElement({
         position: { lat: 33.7746, lng: -84.3963 },
-        map,
+        map: mapInstance.current,
         title: 'Library',
       });
 
       new google.maps.marker.AdvancedMarkerElement({
         position: { lat: 33.7525, lng: -84.3915 },
-        map,
+        map: mapInstance.current,
         title: 'Student Center',
       });
     };
@@ -54,4 +70,4 @@ export default function GoogleMap() {
   );
 }
 
-
+)
