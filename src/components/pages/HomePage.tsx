@@ -1,6 +1,7 @@
 import { Calendar, Map, BookOpen, Users } from 'lucide-react';
 import { Card } from '../ui/card';
 import { Button } from '../ui/button';
+import '@fontsource/poppins';
 
 const backgroundImageUrl = 
 'https://news.gsu.edu/files/2024/08/20190814_MLB_Science_Center_2_night_061.jpg';
@@ -62,10 +63,10 @@ export function HomePage({ onNavigate }: HomePageProps) {
   <div className="relative z-10">
 
   {/* Hero Section */}
-  <div className="text-center mb-12">
-    <h1 className="text-white text-6xl sm:text-4xl md:text-5xl font-bold mb-4">
+  <div className="text-left mb-12">
+    <h1 className="text-white text-6xl sm:text-4xl md:text-5xl font-bold mb-4 font-poppins">
       Welcome to Georgia State Univertiy&apos;s Commuters Net</h1>
-    <p className="text-white max-w-2xl mx-auto">
+    <p className="text-white max-w-2xl">
       Your one-stop resource for finding study spots, connecting with other commuters, 
       and making the most of your time on campus.
     </p>
