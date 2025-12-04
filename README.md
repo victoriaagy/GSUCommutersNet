@@ -16,4 +16,8 @@ Python + API
 
 Alvertha - Profile
 GSU email display + editable user info page
+HTML/CSS
+
+Cor'layshia - Social
+Mock chat/discussion layout + post sample messages
 HTML/CSS, Python optional
