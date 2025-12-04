@@ -1,8 +1,12 @@
 import { Calendar, Map, BookOpen, Users } from 'lucide-react';
 import { Card } from '../ui/card';
 import { Button } from '../ui/button';
-import backgroundImage from 'figma:asset/080f77819a4fbe17c378938467469eb55bd49802.png';
+import backgroundImage from 'images/commuters_hub_background.jpg';
 
+// declare module '*.jpg' {
+//   const value: string;
+//   export default value;
+// }
 interface HomePageProps {
   onNavigate: (page: string) => void;
 }
@@ -40,18 +44,16 @@ export function HomePage({ onNavigate }: HomePageProps) {
   ];
 
   return (
-    <main
-  className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 overflow-hidden"
->
+  <main className = "relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 overflow-hidden">
   {/* Blurred Background Image */}
   <div
     className="absolute inset-0 -z-10 blur-md opacity-50"
     style={{
-      backgroundImage: `url(${backgroundImage})`,
-      backgroundSize: "cover",
-      backgroundPosition: "center",
-    }}
-  />
+  backgroundImage: `url(${backgroundImage})`,
+  backgroundSize: "cover",
+  backgroundPosition: "center",
+}}
+    />
 
   {/* Hero Section */}
   <div className="text-center mb-12">
@@ -103,6 +105,6 @@ export function HomePage({ onNavigate }: HomePageProps) {
           Get Started
         </Button>
       </div>
-    </main>
+  </main>
   );
 }
