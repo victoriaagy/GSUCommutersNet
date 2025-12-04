@@ -59,8 +59,8 @@ export function HomePage({ onNavigate }: HomePageProps) {
 
   {/* Hero Section */}
   <div className="text-center mb-12">
-    <h1 className="text-black mb-4">Welcome to GSU Commuter Hub</h1>
-    <p className="text-gray-600 max-w-2xl mx-auto">
+    <h1 className="text-white text-3xl sm:text-4xl md:text-5xl font-extrabold mb-4">Welcome to Georgia State Univertiy's Commuter Net</h1>
+    <p className="text-white-600 max-w-2xl mx-auto">
       Your one-stop resource for finding study spots, connecting with other commuters, 
       and making the most of your time on campus.
     </p>
