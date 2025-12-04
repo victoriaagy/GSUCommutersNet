@@ -27,27 +27,21 @@ export function SocialPage() {
       name: 'Commuter Students Network',
       members: 265,
       description: 'Connect with fellow commuter students, share tips, and coordinate carpools!',
-      messages: [],
-      events: [],
-      memberNames: ['Estelle', 'Sarah', 'Charlie']
+      messages: []
     },
     {
       id: 2,
       name: 'Computer Science',
       members: 90,
       description: 'This is a group for computer science students to share resources and study together!',
-      messages: [],
-      events: [],
-      memberNames: ['Victoria', 'Sarah']
+      messages: []
     },
     {
       id: 3,
       name: 'Evening Commuters',
       members: 87,
       description: 'For students with evening classes who want to connect and study together!',
-      messages: [],
-      events: [],
-      memberNames: ['Charlie', 'Estelle']
+      messages: []
     }
   ]);
 
@@ -61,8 +55,6 @@ export function SocialPage() {
 
   // Overlay modal state
   const [activeGroup, setActiveGroup] = useState<any>(null);
-  const [newGroupEvent, setNewGroupEvent] = useState('');
-  const [showEventPopup, setShowEventPopup] = useState(false);
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -73,8 +65,11 @@ export function SocialPage() {
     return d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
   };
 
-  const handleJoinGroup = (groupId: number) => {
-    setJoinedGroups(prev => (prev.includes(groupId) ? prev : [...prev, groupId]));
+  const handleJoinGroup = (group: any) => {
+    if (!joinedGroups.includes(group.id)) {
+      setJoinedGroups(prev => [...prev, group.id]);
+    }
+    setActiveGroup(group); // Open overlay immediately
   };
 
   const filteredGroups = groups.filter(g =>
@@ -114,10 +109,6 @@ export function SocialPage() {
     setNewMessage('');
   };
 
-  const openGroupOverlay = (group: any) => {
-    setActiveGroup(group);
-  };
-
   const sendGroupMessage = (text: string) => {
     if (!text.trim()) return;
     const time = getTime();
@@ -139,26 +130,6 @@ export function SocialPage() {
     }));
 
     setNewMessage('');
-  };
-
-  const addGroupEvent = () => {
-    if (!newGroupEvent.trim()) return;
-
-    setGroups(prev =>
-      prev.map(g =>
-        g.id === activeGroup.id
-          ? { ...g, events: [...g.events, newGroupEvent] }
-          : g
-      )
-    );
-
-    setActiveGroup(prev => ({
-      ...prev,
-      events: [...prev.events, newGroupEvent]
-    }));
-
-    setNewGroupEvent('');
-    setShowEventPopup(false);
   };
 
   // --------------------------
@@ -200,9 +171,7 @@ export function SocialPage() {
                       name: newGroupName,
                       members: 1,
                       description: "New group created by you!",
-                      messages: [],
-                      events: [],
-                      memberNames: []
+                      messages: []
                     };
                     setGroups([...groups, newGroup]);
                     setShowCreatePopup(false);
@@ -236,11 +205,7 @@ export function SocialPage() {
 
           {/* GROUP CARDS */}
           {filteredGroups.map(group => (
-            <Card
-              key={group.id}
-              className="p-6 shadow-md hover:shadow-lg transition cursor-pointer"
-              onClick={() => openGroupOverlay(group)}
-            >
+            <Card key={group.id} className="p-6 shadow-md hover:shadow-lg transition">
               <div className="flex items-start gap-4">
                 <div className="bg-blue-100 text-blue-600 p-3 rounded-lg">
                   <Users className="h-6 w-6" />
@@ -256,7 +221,7 @@ export function SocialPage() {
                         joinedGroups.includes(group.id) ? "opacity-50 cursor-not-allowed" : ""
                       }`}
                       disabled={joinedGroups.includes(group.id)}
-                      onClick={(e) => { e.stopPropagation(); handleJoinGroup(group.id); }}
+                      onClick={() => handleJoinGroup(group)}
                     >
                       {joinedGroups.includes(group.id) ? "Joined" : "Join Group"}
                     </Button>
@@ -353,7 +318,7 @@ export function SocialPage() {
         </div>
       </div>
 
-      {/* ------------------ Group Overlay Modal ------------------ */}
+      {/* ------------------ Group Overlay Modal (Chat Only) ------------------ */}
       {activeGroup && (
         <div className="absolute inset-0 bg-black bg-opacity-40 flex justify-center items-start pt-20 z-50">
           <Card className="w-full max-w-4xl p-6 relative shadow-lg">
@@ -367,59 +332,27 @@ export function SocialPage() {
             <h1 className="text-2xl font-bold text-black mb-2">{activeGroup.name}</h1>
             <p className="text-gray-600 mb-4">{activeGroup.description}</p>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {/* LEFT COLUMN */}
-              <div className="space-y-6">
-                {/* Events */}
-                <Card className="p-4 shadow-md">
-                  <h2 className="font-semibold text-black mb-2">Events</h2>
-                  {activeGroup.events.length === 0 ? <p className="text-gray-500 text-sm">No events yet.</p> :
-                    <ul className="space-y-1">{activeGroup.events.map((e: string, i: number) => <li key={i} className="border p-2 rounded">{e}</li>)}</ul>
-                  }
-                  <Button className="mt-2 bg-blue-600 hover:bg-blue-700 text-white text-sm" onClick={() => setShowEventPopup(true)}>+ Add Event</Button>
-                </Card>
-
-                {/* Members */}
-                <Card className="p-4 shadow-md">
-                  <h2 className="font-semibold text-black mb-2">Members</h2>
-                  <ul className="space-y-1">{activeGroup.memberNames.map((m: string, i: number) => <li key={i} className="text-gray-700">{m}</li>)}</ul>
-                </Card>
-              </div>
-
-              {/* RIGHT COLUMN — Group Chat */}
-              <Card className="p-0 border shadow-md flex flex-col h-[450px] md:col-span-2">
-                <div className="p-4 border-b bg-gray-50"><h2 className="font-semibold text-black">Group Chat</h2></div>
-                <div className="flex-1 overflow-y-auto p-4 space-y-2 bg-white">
-                  {activeGroup.messages.length === 0 ? <p className="text-gray-400 text-center text-sm mt-10">No messages yet.</p> :
-                    activeGroup.messages.map((msg: any, i: number) => (
-                      <div key={i} className={`flex ${msg.sender === "you" ? "justify-end" : "justify-start"}`}>
-                        <div className={`max-w-[75%] px-3 py-2 rounded-2xl shadow-sm ${msg.sender === "you" ? "bg-blue-600 text-white rounded-br-none" : "bg-gray-200 text-black rounded-bl-none"}`}>
-                          {msg.text}
-                          <div className="text-xs mt-1 opacity-70">{msg.time}</div>
-                        </div>
+            {/* Group Chat */}
+            <Card className="p-0 border shadow-md flex flex-col h-[450px]">
+              <div className="p-4 border-b bg-gray-50"><h2 className="font-semibold text-black">Group Chat</h2></div>
+              <div className="flex-1 overflow-y-auto p-4 space-y-2 bg-white">
+                {activeGroup.messages.length === 0 ? <p className="text-gray-400 text-center text-sm mt-10">No messages yet.</p> :
+                  activeGroup.messages.map((msg: any, i: number) => (
+                    <div key={i} className={`flex ${msg.sender === "you" ? "justify-end" : "justify-start"}`}>
+                      <div className={`max-w-[75%] px-3 py-2 rounded-2xl shadow-sm ${msg.sender === "you" ? "bg-blue-600 text-white rounded-br-none" : "bg-gray-200 text-black rounded-bl-none"}`}>
+                        {msg.text}
+                        <div className="text-xs mt-1 opacity-70">{msg.time}</div>
                       </div>
-                    ))
-                  }
-                  <div ref={messagesEndRef} />
-                </div>
-                <div className="p-3 border-t bg-gray-50 flex gap-2">
-                  <input type="text" className="flex-1 border border-gray-300 rounded-full px-4 py-2" placeholder="Type a message..." value={newMessage} onChange={(e) => setNewMessage(e.target.value)} />
-                  <Button className="bg-blue-600 hover:bg-blue-700 rounded-full px-4" onClick={() => sendGroupMessage(newMessage)}>Send</Button>
-                </div>
-              </Card>
-            </div>
-
-            {/* Add Event Popup */}
-            {showEventPopup && (
-              <Card className="p-6 mt-4 shadow-md max-w-md mx-auto">
-                <h2 className="text-lg font-semibold text-black mb-2">Add Event</h2>
-                <input type="text" className="w-full border p-2 rounded mb-4" placeholder="Event name..." value={newGroupEvent} onChange={(e) => setNewGroupEvent(e.target.value)} />
-                <div className="flex justify-end gap-3">
-                  <Button variant="ghost" onClick={() => setShowEventPopup(false)}>Cancel</Button>
-                  <Button className="bg-blue-600 text-white" onClick={addGroupEvent}>Add</Button>
-                </div>
-              </Card>
-            )}
+                    </div>
+                  ))
+                }
+                <div ref={messagesEndRef} />
+              </div>
+              <div className="p-3 border-t bg-gray-50 flex gap-2">
+                <input type="text" className="flex-1 border border-gray-300 rounded-full px-4 py-2" placeholder="Type a message..." value={newMessage} onChange={(e) => setNewMessage(e.target.value)} />
+                <Button className="bg-blue-600 hover:bg-blue-700 rounded-full px-4" onClick={() => sendGroupMessage(newMessage)}>Send</Button>
+              </div>
+            </Card>
 
           </Card>
         </div>
