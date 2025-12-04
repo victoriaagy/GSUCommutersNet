@@ -1,7 +1,7 @@
 import { Calendar, Map, BookOpen, Users } from 'lucide-react';
 import { Card } from '../ui/card';
 import { Button } from '../ui/button';
-import backgroundImage from '../../../images/commuters_hub_background.jpg';
+const backgroundImageUrl = 'https://news.gsu.edu/files/2024/08/20190814_MLB_Science_Center_2_night_061.jpg';
 
 // declare module '*.jpg' {
 //   const value: string;
@@ -49,10 +49,10 @@ export function HomePage({ onNavigate }: HomePageProps) {
   <div
     className="absolute inset-0 -z-10 blur-md opacity-50"
     style={{
-  backgroundImage: `url(${backgroundImage})`,
-  backgroundSize: "cover",
-  backgroundPosition: "center",
-}}
+      backgroundImage: `url(${backgroundImageUrl})`,
+      backgroundSize: "cover",
+      backgroundPosition: "center",
+    }}
     />
 
   {/* Hero Section */}
