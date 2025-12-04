@@ -1,18 +1,38 @@
-import { useState } from 'react';
-import { StudySpotCard } from '../StudySpotCard';
-import { Button } from '../ui/button';
-import type { StudySpot, SpotType } from '../../App';
+import { useState, useEffect } from "react";
+import { StudySpotCard } from "../StudySpotCard";
+import { Button } from "../ui/button";
+import type { StudySpot, SpotType } from "../../App";
 
 interface StudySpotsPageProps {
   studySpots: StudySpot[];
 }
 
 export function StudySpotsPage({ studySpots }: StudySpotsPageProps) {
-  const [activeFilter, setActiveFilter] = useState<'All' | SpotType>('All');
+  const [activeFilter, setActiveFilter] = useState<'All' | SpotType | 'Favorites'>('All');
+  const [favorites, setFavorites] = useState<string[]>([]);
 
-  const filteredSpots = studySpots.filter(spot => 
-    activeFilter === 'All' ? true : spot.type === activeFilter
-  );
+  // Load favorites from localStorage
+  useEffect(() => {
+    const saved = localStorage.getItem("favorites");
+    if (saved) setFavorites(JSON.parse(saved));
+  }, []);
+
+  // Save favorites to localStorage
+  useEffect(() => {
+    localStorage.setItem("favorites", JSON.stringify(favorites));
+  }, [favorites]);
+
+  const toggleFavorite = (id: string) => {
+    setFavorites((prev) =>
+      prev.includes(id) ? prev.filter((f) => f !== id) : [...prev, id]
+    );
+  };
+
+  const filteredSpots = studySpots.filter((spot) => {
+    if (activeFilter === "All") return true;
+    if (activeFilter === "Favorites") return favorites.includes(spot.id);
+    return spot.type === activeFilter;
+  });
 
   return (
     <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -23,28 +43,46 @@ export function StudySpotsPage({ studySpots }: StudySpotsPageProps) {
       </div>
 
       {/* Filter Buttons */}
-      <div className="flex justify-center gap-3 mb-8">
+      <div className="flex justify-center gap-3 flex-wrap mb-8">
         <Button
-          onClick={() => setActiveFilter('Quiet')}
-          variant={activeFilter === 'Quiet' ? 'default' : 'outline'}
-          className={activeFilter === 'Quiet' ? 'bg-blue-600 hover:bg-blue-700' : 'border-blue-600 text-blue-600 hover:bg-blue-50'}
+          onClick={() => setActiveFilter("Quiet")}
+          className={`rounded-full px-4 py-2 text-sm font-medium ${
+            activeFilter === "Quiet"
+              ? "bg-blue-100 text-blue-800 hover:bg-blue-200"
+              : "bg-white border border-blue-300 text-blue-600 hover:bg-blue-50"
+          }`}
         >
-          Quiet Spots
+          🧘 Quiet Spots
         </Button>
+
         <Button
-          onClick={() => setActiveFilter('Active')}
-          variant={activeFilter === 'Active' ? 'default' : 'outline'}
-          className={activeFilter === 'Active' ? 'bg-blue-600 hover:bg-blue-700' : 'border-blue-600 text-blue-600 hover:bg-blue-50'}
+          onClick={() => setActiveFilter("Active")}
+          className={`rounded-full px-4 py-2 text-sm font-medium ${
+            activeFilter === "Active"
+              ? "bg-pink-100 text-pink-800 hover:bg-pink-200"
+              : "bg-white border border-pink-300 text-pink-600 hover:bg-pink-50"
+          }`}
         >
-          Active Spots
+          🕺 Active Spots
         </Button>
-        {activeFilter !== 'All' && (
+
+        <Button
+          onClick={() => setActiveFilter("Favorites")}
+          className={`rounded-full px-4 py-2 text-sm font-medium ${
+            activeFilter === "Favorites"
+              ? "bg-yellow-200 text-yellow-800 hover:bg-yellow-300"
+              : "bg-white border border-yellow-300 text-yellow-600 hover:bg-yellow-50"
+          }`}
+        >
+          ⭐ Favorites
+        </Button>
+
+        {activeFilter !== "All" && (
           <Button
-            onClick={() => setActiveFilter('All')}
-            variant="ghost"
-            className="text-gray-600 hover:text-gray-900"
+            onClick={() => setActiveFilter("All")}
+            className="rounded-full px-4 py-2 text-sm font-medium bg-gray-100 text-gray-700 hover:bg-gray-200"
           >
-            Clear Filter
+            🔄 Clear Filter
           </Button>
         )}
       </div>
@@ -52,7 +90,12 @@ export function StudySpotsPage({ studySpots }: StudySpotsPageProps) {
       {/* Study Spots Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {filteredSpots.map((spot) => (
-          <StudySpotCard key={spot.id} spot={spot} />
+          <StudySpotCard
+            key={spot.id}
+            spot={spot}
+            favorites={favorites}
+            toggleFavorite={toggleFavorite}
+          />
         ))}
       </div>
 

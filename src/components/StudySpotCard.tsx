@@ -1,82 +1,117 @@
-import { Clock, Volume2, VolumeX, Wifi } from 'lucide-react';
-import { Card } from './ui/card';
-import { Badge } from './ui/badge';
-import type { StudySpot } from '../App';
-import { ImageWithFallback } from './figma/ImageWithFallback';
+import { useState } from "react";
+import type { StudySpot } from "../App";
+import { ChevronDown, Star } from "lucide-react";
 
 interface StudySpotCardProps {
   spot: StudySpot;
+  favorites: string[];
+  toggleFavorite: (id: string) => void;
 }
 
-export function StudySpotCard({ spot }: StudySpotCardProps) {
-  const hasGSUWifi =
-    spot.name.includes("GSU") ||
-    spot.name.includes("Library") ||
-    spot.name.includes("Panther") ||
-    spot.name.includes("55 Park Place") ||
-    spot.name.includes("Centennial") ||
-    spot.name.includes("Law Library") ||
-    spot.name.includes("CMII");
+export function StudySpotCard({ spot, favorites, toggleFavorite }: StudySpotCardProps) {
+  const [expanded, setExpanded] = useState(false);
+
+  const isFavorite = favorites.includes(spot.id);
+
+  const getBusyColors = (level?: string) => {
+    switch (level) {
+      case "Low":
+        return { text: "text-green-600", bar: "bg-green-500", width: "33%" };
+      case "Medium":
+        return { text: "text-yellow-600", bar: "bg-yellow-500", width: "66%" };
+      case "High":
+        return { text: "text-red-600", bar: "bg-red-500", width: "100%" };
+      default:
+        return { text: "text-gray-600", bar: "bg-gray-400", width: "50%" };
+    }
+  };
+
+  // Expanded emoji set — every amenity has something cute
+  const amenityIcons: Record<string, string> = {
+    WiFi: "📶",
+    Quiet: "🤫",
+    Food: "🍽️",
+    "Power Outlets": "🔌",
+    Seating: "🛋️",
+    Whiteboards: "📝",
+    "Window Views": "🌆",
+    "Group Tables": "🧑‍🤝‍🧑",
+    "Private Desks": "🪑",
+    "Nap Pods": "🛌",
+    "Collaborative Tables": "🤝",
+    "Digital Media": "💻",
+    "Nearby Food": "🍱",
+    Default: "✨", // fallback
+  };
 
   return (
-    <Card className="overflow-hidden shadow-md hover:shadow-xl transform hover:scale-[1.02] transition-transform transition-shadow duration-300 ease-in-out rounded-2xl bg-white">
-      
-      {/* Image */}
-      <div className="relative h-48 overflow-hidden">
-        <ImageWithFallback
-          src={spot.imageUrl}
-          alt={spot.name}
-          className="w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
-      </div>
-
-      {/* Content */}
-      <div className="p-5">
-
-        {/* Spot Name */}
-        <h3 className="text-black font-semibold text-lg mb-2">{spot.name}</h3>
-
-        {/* Type Badge */}
-        <div className="flex items-center gap-1.5 mb-3">
-          <Badge 
-            className={`${
-              spot.type === 'Quiet' 
-                ? 'bg-blue-100 text-blue-700 hover:bg-blue-200' 
-                : 'bg-black text-white hover:bg-black/90'
-            } cursor-default rounded-full flex items-center gap-1.5 px-3 py-1.5 text-sm`}
+    <div className="bg-white border border-gray-200 rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow">
+      <img src={spot.imageUrl} alt={spot.name} className="w-full h-48 object-cover" />
+      <div className="p-6">
+        {/* Header */}
+        <div className="flex justify-between items-start">
+          <div>
+            <h2 className="text-xl font-semibold text-gray-800">{spot.name}</h2>
+            <p className="text-gray-600 text-sm">{spot.description}</p>
+          </div>
+          {/* Favorite Button — always yellow star */}
+          <button
+            onClick={() => toggleFavorite(spot.id)}
+            className="ml-2 text-yellow-500 hover:text-yellow-600"
           >
-            {spot.type === 'Quiet' ? <VolumeX className="h-3 w-3" /> : <Volume2 className="h-3 w-3" />}
-            {spot.type}
-          </Badge>
-
-          {/* Optional Busy Level */}
-          {spot.busyLevel && (
-            <Badge className="bg-yellow-100 text-yellow-700 rounded-full px-3 py-1.5 text-sm">
-              {spot.busyLevel} Busy
-            </Badge>
-          )}
+            <Star size={22} fill={isFavorite ? "currentColor" : "none"} />
+          </button>
         </div>
 
-        {/* Hours */}
-        <div className="flex items-center gap-2 text-gray-600 mb-3">
-          <Clock className="h-4 w-4" />
-          <span>{spot.hours}</span>
-        </div>
+        {/* Toggle Button */}
+        <button
+          onClick={() => setExpanded(!expanded)}
+          className="mt-4 flex items-center justify-between w-full text-blue-600 hover:text-blue-800 font-medium"
+        >
+          {expanded ? "Hide details" : "Show details"}
+          <ChevronDown
+            size={18}
+            className={`transition-transform ${expanded ? "rotate-180" : ""}`}
+          />
+        </button>
 
-        {/* WiFi Badge */}
-        {hasGSUWifi && (
-          <div className="flex items-center gap-2 mb-3">
-            <Badge className="bg-green-100 text-green-700 rounded-full hover:bg-green-200 flex items-center gap-1 px-3 py-1.5 text-sm" aria-label="WiFi Access at GSU">
-              <Wifi className="h-3 w-3" />
-              WiFi Access (GSU)
-            </Badge>
+        {/* Expandable Section */}
+        {expanded && (
+          <div className="mt-4 p-4 bg-gray-50 rounded-lg border border-gray-200">
+            <p className="mb-2"><strong>Hours:</strong> {spot.hours}</p>
+            {spot.location && <p className="mb-2"><strong>Location:</strong> {spot.location}</p>}
+
+            {/* Busy Level Indicator */}
+            {spot.busyLevel && (
+              <div className="mb-2">
+                <p className={`font-medium ${getBusyColors(spot.busyLevel).text}`}>
+                  Busy Level: {spot.busyLevel}
+                </p>
+                <div className="w-full h-2 bg-gray-200 rounded">
+                  <div
+                    className={`h-2 rounded ${getBusyColors(spot.busyLevel).bar}`}
+                    style={{ width: getBusyColors(spot.busyLevel).width }}
+                  />
+                </div>
+              </div>
+            )}
+
+            {/* Amenities */}
+            {spot.amenities && (
+              <div className="flex flex-wrap gap-2 mt-2">
+                {spot.amenities.map((a) => (
+                  <span
+                    key={a}
+                    className="flex items-center gap-1 bg-gray-100 px-3 py-1 rounded-full text-sm"
+                  >
+                    {amenityIcons[a] || amenityIcons.Default} {a}
+                  </span>
+                ))}
+              </div>
+            )}
           </div>
         )}
-
-        {/* Description */}
-        <p className="text-gray-700 leading-snug line-clamp-3">{spot.description}</p>
       </div>
-    </Card>
+    </div>
   );
 }
