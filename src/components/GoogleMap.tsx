@@ -22,7 +22,7 @@ const GoogleMap = forwardRef<MapHandle>((props, ref) => {
   useEffect(() => {
     const script = document.createElement("script");
     script.src =
-      "https://maps.googleapis.com/maps/api/js?key=AIzaSyDJZU7vW5MA3fRfS_eN_pEt3E6ZfuTHLuc&callback=initMap";
+      "https://maps.googleapis.com/maps/api/js?key=AIzaSyDJZU7vW5MA3fRfS_eN_pEt3E6ZfuTHLuc&callback=initMap&libraries=marker";
     script.async = true;
     script.defer = true;
     document.body.appendChild(script);
@@ -71,3 +71,5 @@ const GoogleMap = forwardRef<MapHandle>((props, ref) => {
 }
 
 )
+
+export default GoogleMap;
