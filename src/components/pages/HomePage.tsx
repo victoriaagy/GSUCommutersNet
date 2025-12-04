@@ -1,7 +1,9 @@
 import { Calendar, Map, BookOpen, Users } from 'lucide-react';
 import { Card } from '../ui/card';
 import { Button } from '../ui/button';
-const backgroundImageUrl = 'https://news.gsu.edu/files/2024/08/20190814_MLB_Science_Center_2_night_061.jpg';
+
+const backgroundImageUrl = 
+'https://news.gsu.edu/files/2024/08/20190814_MLB_Science_Center_2_night_061.jpg';
 
 // declare module '*.jpg' {
 //   const value: string;
@@ -44,10 +46,10 @@ export function HomePage({ onNavigate }: HomePageProps) {
   ];
 
   return (
-  <main className = "relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 overflow-hidden">
-  {/* Blurred Background Image */}
+  <main className = "font-poppins relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 overflow-hidden">
+  {/*Background Image */}
   <div
-    className="absolute inset-0 z-0 blur-sm opacity-100"
+    className="absolute inset-0 z-0"
     style={{
       backgroundImage: `url(${backgroundImageUrl})`,
       backgroundSize: "cover",
@@ -55,12 +57,15 @@ export function HomePage({ onNavigate }: HomePageProps) {
     }}
   />
 
+  <div className= "absolute inset-0 z-0 bg-black/40 backdrop-blur-sm" />
+
   <div className="relative z-10">
 
   {/* Hero Section */}
   <div className="text-center mb-12">
-    <h1 className="text-white text-3xl sm:text-4xl md:text-5xl font-extrabold mb-4">Welcome to Georgia State Univertiy's Commuter Net</h1>
-    <p className="text-white-600 max-w-2xl mx-auto">
+    <h1 className="text-white text-6xl sm:text-4xl md:text-5xl font-bold mb-4">
+      Welcome to Georgia State Univertiy&apos;s Commuters Net</h1>
+    <p className="text-white max-w-2xl mx-auto">
       Your one-stop resource for finding study spots, connecting with other commuters, 
       and making the most of your time on campus.
     </p>
@@ -83,12 +88,7 @@ export function HomePage({ onNavigate }: HomePageProps) {
                 <div className="flex-1">
                   <h3 className="text-black mb-2">{link.title}</h3>
                   <p className="text-gray-600">{link.description}</p>
-                  <Button
-                    variant="link"
-                    className="text-blue-600 hover:text-blue-700 px-0 mt-2"
-                  >
-                    Explore →
-                  </Button>
+  
                 </div>
               </div>
             </Card>
