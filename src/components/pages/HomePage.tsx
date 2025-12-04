@@ -47,7 +47,7 @@ export function HomePage({ onNavigate }: HomePageProps) {
   <main className = "relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 overflow-hidden">
   {/* Blurred Background Image */}
   <div
-    className="absolute inset-0 z-0 blur-md opacity-50"
+    className="absolute inset-0 z-0 blur-sm opacity-100"
     style={{
       backgroundImage: `url(${backgroundImageUrl})`,
       backgroundSize: "cover",
