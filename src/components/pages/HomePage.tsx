@@ -1,7 +1,6 @@
 import { Calendar, Map, BookOpen, Users } from 'lucide-react';
 import { Card } from '../ui/card';
 import { Button } from '../ui/button';
-import '@fontsource/poppins';
 
 const backgroundImageUrl = 
 'https://news.gsu.edu/files/2024/08/20190814_MLB_Science_Center_2_night_061.jpg';
