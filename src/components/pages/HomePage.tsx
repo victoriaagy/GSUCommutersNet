@@ -1,7 +1,7 @@
 import { Calendar, Map, BookOpen, Users } from 'lucide-react';
 import { Card } from '../ui/card';
 import { Button } from '../ui/button';
-import backgroundImage from 'images/commuters_hub_background.jpg';
+import backgroundImage from '../../../images/commuters_hub_background.jpg';
 
 // declare module '*.jpg' {
 //   const value: string;
