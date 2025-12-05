@@ -49,7 +49,7 @@ export function HomePage({ onNavigate }: HomePageProps) {
   <main className = "font-poppins relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 overflow-hidden">
   {/*Background Image */}
   <div
-    className="absolute inset-0 z-0"
+    className="absolute inset-0 z-0 blur-[10px]"
     style={{
       backgroundImage: `url(${backgroundImageUrl})`,
       backgroundSize: "cover",
@@ -65,11 +65,11 @@ export function HomePage({ onNavigate }: HomePageProps) {
   <div className="text-left mb-12">
     <h1
       className="text-white font-bold mb-4 font-poppins"
-      style={{ fontSize: 'clamp(2rem, 5vw, 3.5rem)', lineHeight: 1.1 }}
-    > Welcome to GSU
-      <br></br>Commuters Net
+      style={{ fontSize: 'clamp(3rem, 6vw, 4rem)', lineHeight: 1.1 }}
+    > Welcome to
+      <br></br> GSU Commuters Net
     </h1>
-    <p className="text-base sm:text-lg text-white max-w-2xl">
+    <p className="text-lg sm:text-xl text-white max-w-2xl">
       Your one-stop resource for finding study spots, connecting with other commuters, 
       and making the most of your time on campus.
     </p>
@@ -82,9 +82,9 @@ export function HomePage({ onNavigate }: HomePageProps) {
           return (
             <Card
               key={link.page}
-              className="p-6 cursor-pointer hover:shadow-xl transition-all duration-300 hover:scale-[1.02] shadow-md"
+              className="p-6 cursor-pointer hover:shadow-xl transition-all duration-300 hover:scale-[1.02] w-96"
               onClick={() => onNavigate(link.page)}
-                style={{ backgroundColor: 'rgba(255, 255, 255, 0.9)', backdropFilter: 'blur(3px)' }} >
+                style={{ backgroundColor: 'rgba(255, 255, 255, 0.5)', backdropFilter: 'blur(4px)'}} >
               <div className="flex items-start gap-3">
                 <div className={`p-3 rounded-lg ${link.color}`}>
                   <Icon className="h-6 w-6" />
@@ -93,9 +93,9 @@ export function HomePage({ onNavigate }: HomePageProps) {
                   <h3 className="font-bold text-xl text-grey-900 mb-1">{link.title}</h3>
                   <p className="text-gray-600">{link.description}</p>
   
+               </div>
                 </div>
-              </div>
-            </Card>
+              </Card>
           );
         })}
       </div>
