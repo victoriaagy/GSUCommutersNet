@@ -4,7 +4,6 @@ import { Button } from '../ui/button';
 import { Avatar, AvatarFallback } from '../ui/avatar';
 import { useState, useRef, useEffect } from 'react';
 
-// Connections with statuses
 const connections = [
   { name: 'Estelle Bennett', major: 'Computer Science', initials: 'EB', color: 'bg-green-600', status: 'online' },
   { name: 'Sarah O Brian', major: 'Computer Science', initials: 'SO', color: 'bg-blue-600', status: 'idle' },
@@ -16,9 +15,7 @@ export function SocialPage() {
   const [joinedGroups, setJoinedGroups] = useState<number[]>([]);
   const [showCreatePopup, setShowCreatePopup] = useState(false);
   const [newGroupName, setNewGroupName] = useState('');
-
   const [groupSearch, setGroupSearch] = useState('');
-
   const [unread, setUnread] = useState<{ [key: string]: number }>({});
 
   const [groups, setGroups] = useState([
@@ -52,8 +49,6 @@ export function SocialPage() {
 
   const [newMessage, setNewMessage] = useState('');
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
-
-  // Overlay modal state
   const [activeGroup, setActiveGroup] = useState<any>(null);
 
   useEffect(() => {
@@ -69,7 +64,7 @@ export function SocialPage() {
     if (!joinedGroups.includes(group.id)) {
       setJoinedGroups(prev => [...prev, group.id]);
     }
-    setActiveGroup(group); // Open overlay immediately
+    setActiveGroup(group); 
   };
 
   const filteredGroups = groups.filter(g =>
@@ -132,13 +127,10 @@ export function SocialPage() {
     setNewMessage('');
   };
 
-  // --------------------------
-  // MAIN PAGE
-  // --------------------------
+
   return (
     <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 relative">
 
-      {/* Header */}
       <div className="text-center mb-8">
         <h1 className="text-black mb-2">Connect & Socialize</h1>
         <p className="text-gray-600">Meet other commuter students and join study groups!</p>
@@ -146,10 +138,8 @@ export function SocialPage() {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
-        {/* LEFT COLUMN */}
         <div className="lg:col-span-2 space-y-6">
 
-          {/* CREATE GROUP POPUP AT TOP */}
           {showCreatePopup && (
             <Card className="p-6 border border-gray-300 shadow-md">
               <h2 className="text-black mb-4 text-lg font-semibold">Create New Group</h2>
@@ -184,7 +174,6 @@ export function SocialPage() {
             </Card>
           )}
 
-          {/* Groups Header */}
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-black text-xl">Groups & Communities</h2>
             <input
@@ -203,7 +192,6 @@ export function SocialPage() {
             </Button>
           </div>
 
-          {/* GROUP CARDS */}
           {filteredGroups.map(group => (
             <Card key={group.id} className="p-6 shadow-md hover:shadow-lg transition">
               <div className="flex items-start gap-4">
@@ -233,10 +221,8 @@ export function SocialPage() {
 
         </div>
 
-        {/* RIGHT COLUMN – CONNECTIONS & CHAT */}
         <div className="space-y-6">
 
-          {/* CONNECTIONS LIST */}
           <Card className="p-6 shadow-md">
             <h3 className="text-black mb-4 text-lg font-semibold">Your Connections</h3>
             <div className="space-y-4">
@@ -278,7 +264,6 @@ export function SocialPage() {
             </Button>
           </Card>
 
-          {/* CHAT WINDOW */}
           {activeChat && (
             <Card className="p-0 border border-gray-300 shadow-md flex flex-col h-[450px]">
               <div className="p-4 border-b flex justify-between items-center bg-gray-50">
@@ -318,7 +303,7 @@ export function SocialPage() {
         </div>
       </div>
 
-      {/* ------------------ Group Overlay Modal (Chat Only) ------------------ */}
+
       {activeGroup && (
         <div className="absolute inset-0 bg-black bg-opacity-40 flex justify-center items-start pt-20 z-50">
           <Card className="w-full max-w-4xl p-6 relative shadow-lg">
