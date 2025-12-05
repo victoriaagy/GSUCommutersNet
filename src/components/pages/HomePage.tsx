@@ -66,8 +66,8 @@ export function HomePage({ onNavigate }: HomePageProps) {
     <h1
       className="text-white font-bold mb-4 font-poppins"
       style={{ fontSize: 'clamp(1.875rem, 5vw, 3.5rem)', lineHeight: 1.1 }}
-    >
-      Welcome to Georgia State Univertiy&apos;s Commuters Net
+    > Welcome to GSU
+      <span className="block">Commuters Net</span>
     </h1>
     <p className="text-white max-w-2xl">
       Your one-stop resource for finding study spots, connecting with other commuters, 
