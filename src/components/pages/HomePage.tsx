@@ -57,7 +57,7 @@ export function HomePage({ onNavigate }: HomePageProps) {
     }}
   />
 
-  <div className= "absolute inset-0 z-0 bg-black/40 backdrop-blur-sm" />
+  <div className= "absolute inset-0 z-0 bg-black/60 backdrop-blur-sm" />
 
   <div className="relative z-10">
 
@@ -65,11 +65,11 @@ export function HomePage({ onNavigate }: HomePageProps) {
   <div className="text-left mb-12">
     <h1
       className="text-white font-bold mb-4 font-poppins"
-      style={{ fontSize: 'clamp(1.875rem, 5vw, 3.5rem)', lineHeight: 1.1 }}
+      style={{ fontSize: 'clamp(2rem, 5vw, 3.5rem)', lineHeight: 1.1 }}
     > Welcome to GSU
       <br></br>Commuters Net
     </h1>
-    <p className="text-white max-w-2xl">
+    <p className="text-base sm:text-lg text-white max-w-2xl">
       Your one-stop resource for finding study spots, connecting with other commuters, 
       and making the most of your time on campus.
     </p>
@@ -90,7 +90,7 @@ export function HomePage({ onNavigate }: HomePageProps) {
                   <Icon className="h-6 w-6" />
                 </div>
                 <div className="flex-1">
-                  <h3 className="text-black mb-2">{link.title}</h3>
+                  <h3 className="font-semibold text-lg text-black mb-2">{link.title}</h3>
                   <p className="text-gray-600">{link.description}</p>
   
                 </div>
