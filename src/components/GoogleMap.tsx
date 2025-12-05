@@ -8,14 +8,15 @@ const GoogleMap = forwardRef<MapHandle>((props, ref) => {
   const mapRef = useRef<HTMLDivElement | null>(null);
   const mapInstance = useRef<google.maps.Map | null>(null);
 
+  // Let parent call moveToLocation()
   useImperativeHandle(ref, () => ({
-    moveToLocation(lat: number, lng: number) {
+    moveToLocation(lat, lng) {
       if (mapInstance.current) {
         mapInstance.current.panTo({ lat, lng });
         mapInstance.current.setZoom(18);
       }
     },
-  }));
+  }))
 
 
 
@@ -33,9 +34,11 @@ const GoogleMap = forwardRef<MapHandle>((props, ref) => {
       const gsu = { lat: 33.7537, lng: -84.3858 };
 
       const map = new google.maps.Map(mapRef.current, {
-        zoom: 16,
-        center: gsu,
+        center : { lat: 33.7537, lng: -84.3858 },
+        zoom : 16
       });
+
+      mapInstance.current = map
 
       new google.maps.marker.AdvancedMarkerElement({
         position: gsu,
