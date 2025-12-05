@@ -65,11 +65,11 @@ export function HomePage({ onNavigate }: HomePageProps) {
   <div className="text-left mb-12">
     <h1
       className="text-white font-bold mb-4 font-poppins"
-      style={{ fontSize: 'clamp(2rem, 5vw, 3.5rem)', lineHeight: 1.1 }}
+      style={{ fontSize: 'clamp(4rem, 8vw, 6rem)', lineHeight: 1.1 }}
     > Welcome to GSU
       <br></br>Commuters Net
     </h1>
-    <p className="text-base sm:text-lg text-white max-w-2xl">
+    <p className="text-2xl sm:text-3xl text-white max-w-2xl">
       Your one-stop resource for finding study spots, connecting with other commuters, 
       and making the most of your time on campus.
     </p>
