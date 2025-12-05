@@ -1,7 +1,7 @@
 import { MapPin, Car, Coffee, Utensils, BookOpen } from 'lucide-react';
 import { Card } from '../ui/card';
-import {useRef} from 'react';
-import GoogleMap, {MapHandle} from '../GoogleMap';
+import { useRef } from 'react';
+import GoogleMap, { MapHandle } from '../GoogleMap';
 
 const locations = [
   {
@@ -9,9 +9,9 @@ const locations = [
     icon: Car,
     color: 'bg-blue-100 text-blue-600',
     places: [
-      { name: 'G Deck', address: '30 Piedmont Ave SE', lat: 33.7531, lng: -84.3877},
-      { name: 'M Deck', address: '100 Piedmont Ave SE', lat: 33.7546, lng: -84.3870},
-      { name: 'S Deck', address: '75 Gilmer St SE', lat: 33.7539, lng: -84.3850}
+      { name: 'G Deck', address: '30 Piedmont Ave SE', lat: 33.7531, lng: -84.3877 },
+      { name: 'M Deck', address: '100 Piedmont Ave SE', lat: 33.7546, lng: -84.3870 },
+      { name: 'S Deck', address: '75 Gilmer St SE', lat: 33.7539, lng: -84.3850 }
     ]
   },
   {
@@ -46,10 +46,9 @@ const locations = [
   }
 ];
 
-
-
 export function MapsPage() {
   const mapRef = useRef<MapHandle>(null);
+
   return (
     <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       {/* Header */}
@@ -59,8 +58,8 @@ export function MapsPage() {
       </div>
 
       {/* Map */}
-      <div className='mb-8'>
-        <GoogleMap ref={mapRef}/>
+      <div className="mb-8">
+        <GoogleMap ref={mapRef} />
       </div>
 
       {/* Locations Grid */}
@@ -75,11 +74,19 @@ export function MapsPage() {
                 </div>
                 <h3 className="text-black">{location.category}</h3>
               </div>
+
               <div className="space-y-3">
                 {location.places.map((place, index) => (
                   <div
                     key={index}
-                    onClick={() => mapRef.current?.moveToLocation(place.lat, place.lng)}
+                    onClick={() =>
+                      mapRef.current?.moveToLocation(
+                        place.lat,
+                        place.lng,
+                        place.name,
+                        place.address
+                      )
+                    }
                     className="flex items-start gap-2 text-gray-700 cursor-pointer hover:bg-gray-100 p-2 rounded"
                   >
                     <MapPin className="h-4 w-4 mt-1 flex-shrink-0 text-gray-400" />
