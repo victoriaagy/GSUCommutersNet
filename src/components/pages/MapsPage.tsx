@@ -1,5 +1,7 @@
 import { MapPin, Car, Coffee, Utensils, BookOpen } from 'lucide-react';
 import { Card } from '../ui/card';
+import { useRef } from 'react';
+import GoogleMap, { MapHandle } from '../GoogleMap';
 
 const locations = [
   {
@@ -7,9 +9,9 @@ const locations = [
     icon: Car,
     color: 'bg-blue-100 text-blue-600',
     places: [
-      { name: 'G Deck', address: '30 Piedmont Ave SE' },
-      { name: 'M Deck', address: '100 Piedmont Ave SE' },
-      { name: 'S Deck', address: '75 Gilmer St SE' }
+      { name: 'G Deck', address: '30 Piedmont Ave SE', lat: 33.7531, lng: -84.3877 },
+      { name: 'M Deck', address: '100 Piedmont Ave SE', lat: 33.7546, lng: -84.3870 },
+      { name: 'S Deck', address: '75 Gilmer St SE', lat: 33.7539, lng: -84.3850 }
     ]
   },
   {
@@ -17,9 +19,9 @@ const locations = [
     icon: Utensils,
     color: 'bg-green-100 text-green-600',
     places: [
-      { name: 'Panther Dining Hall', address: 'Student Center East' },
-      { name: 'Chick-fil-A', address: 'Student Center West' },
-      { name: 'Freshens', address: 'Library North' }
+      { name: 'Panther Dining Hall', address: 'Student Center East', lat: 33.7525, lng: -84.3916 },
+      { name: 'Chick-fil-A', address: 'Student Center West', lat: 33.7528, lng: -84.3918 },
+      { name: 'Freshens', address: 'Library North', lat: 33.7539, lng: -84.3879 }
     ]
   },
   {
@@ -27,9 +29,9 @@ const locations = [
     icon: Coffee,
     color: 'bg-orange-100 text-orange-600',
     places: [
-      { name: 'Starbucks', address: 'Library South' },
-      { name: 'Dunkin\'', address: 'Aderhold Hall' },
-      { name: 'Einstein Bros', address: 'Langdale Hall' }
+      { name: 'Starbucks', address: 'Library South', lat: 33.7534, lng: -84.3878 },
+      { name: 'Dunkin\'', address: 'Aderhold Hall', lat: 33.7530, lng: -84.3884 },
+      { name: 'Einstein Bros', address: 'Langdale Hall', lat: 33.7529, lng: -84.3870 }
     ]
   },
   {
@@ -37,14 +39,16 @@ const locations = [
     icon: BookOpen,
     color: 'bg-purple-100 text-purple-600',
     places: [
-      { name: 'GSU Library', address: '100 Decatur St SE' },
-      { name: 'Law Library', address: '140 Decatur St SE' },
-      { name: '55 Park Place', address: '55 Park Pl NE' }
+      { name: 'GSU Library', address: '100 Decatur St SE', lat: 33.7533, lng: -84.3878 },
+      { name: 'Law Library', address: '140 Decatur St SE', lat: 33.7521, lng: -84.3865 },
+      { name: '55 Park Place', address: '55 Park Pl NE', lat: 33.7570, lng: -84.3874 }
     ]
   }
 ];
 
 export function MapsPage() {
+  const mapRef = useRef<MapHandle>(null);
+
   return (
     <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       {/* Header */}
@@ -53,14 +57,10 @@ export function MapsPage() {
         <p className="text-gray-600">Navigate GSU buildings and facilities with ease</p>
       </div>
 
-      {/* Map Placeholder */}
-      <Card className="p-8 mb-8 bg-gray-100 text-center shadow-md">
-        <MapPin className="h-12 w-12 mx-auto mb-4 text-blue-600" />
-        <h3 className="text-black mb-2">Interactive Campus Map</h3>
-        <p className="text-gray-600">
-          Interactive map coming soon. View key locations below.
-        </p>
-      </Card>
+      {/* Map */}
+      <div className="mb-8">
+        <GoogleMap ref={mapRef} />
+      </div>
 
       {/* Locations Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -74,9 +74,21 @@ export function MapsPage() {
                 </div>
                 <h3 className="text-black">{location.category}</h3>
               </div>
+
               <div className="space-y-3">
                 {location.places.map((place, index) => (
-                  <div key={index} className="flex items-start gap-2 text-gray-700">
+                  <div
+                    key={index}
+                    onClick={() =>
+                      mapRef.current?.moveToLocation(
+                        place.lat,
+                        place.lng,
+                        place.name,
+                        place.address
+                      )
+                    }
+                    className="flex items-start gap-2 text-gray-700 cursor-pointer hover:bg-gray-100 p-2 rounded"
+                  >
                     <MapPin className="h-4 w-4 mt-1 flex-shrink-0 text-gray-400" />
                     <div>
                       <div>{place.name}</div>

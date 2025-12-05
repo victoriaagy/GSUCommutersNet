@@ -58,7 +58,7 @@ export function EventsPage() {
       {/* Header Section */}
       <div className="text-center mb-8">
         <h1 className="text-black mb-2">Events</h1>
-        <p className="text-gray-600">Discover upcoming events and activities for commuter students</p>
+        <p className="text-gray-600">Discover upcoming events and activities for commuter students!</p>
       </div>
 
       {/* Filter Buttons */}
