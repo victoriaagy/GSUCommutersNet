@@ -63,8 +63,12 @@ export function HomePage({ onNavigate }: HomePageProps) {
 
   {/* Hero Section */}
   <div className="text-left mb-12">
-    <h1 className="text-white text-6xl sm:text-4xl md:text-5xl font-bold mb-4 font-poppins">
-      Welcome to Georgia State Univertiy&apos;s Commuters Net</h1>
+    <h1
+      className="text-white font-bold mb-4 font-poppins"
+      style={{ fontSize: 'clamp(1.875rem, 5vw, 3.5rem)', lineHeight: 1.1 }}
+    >
+      Welcome to Georgia State Univertiy&apos;s Commuters Net
+    </h1>
     <p className="text-white max-w-2xl">
       Your one-stop resource for finding study spots, connecting with other commuters, 
       and making the most of your time on campus.
