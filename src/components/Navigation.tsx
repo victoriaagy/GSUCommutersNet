@@ -21,7 +21,7 @@ export function Navigation({ currentPage, onNavigate }: NavigationProps) {
         <div className="flex items-center justify-between h-16">
           {/* Logo/Brand */}
           <div className="flex items-center cursor-pointer" onClick={() => onNavigate('home')}>
-            <span className="text-white">GSU Commuter Hub</span>
+            <span className="text-white">GSU Commuters Net</span>
           </div>
 
           {/* Navigation Buttons */}

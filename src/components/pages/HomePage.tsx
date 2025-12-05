@@ -95,18 +95,6 @@ export function HomePage({ onNavigate }: HomePageProps) {
           );
         })}
       </div>
-
-      {/* Info Section */}
-      <div className="bg-blue-50 rounded-lg p-8 text-center">
-        <h2 className="text-black mb-3">New to GSU?</h2>
-        <p className="text-gray-700 mb-4">
-          Discover resources designed specifically for commuter students to help you 
-          navigate campus life, find study spots, and connect with peers.
-        </p>
-        <Button className="bg-blue-600 hover:bg-blue-700">
-          Get Started
-        </Button>
-      </div>
   </div>
   </main>
   );
