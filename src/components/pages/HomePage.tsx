@@ -1,8 +1,14 @@
 import { Calendar, Map, BookOpen, Users } from 'lucide-react';
 import { Card } from '../ui/card';
 import { Button } from '../ui/button';
-import backgroundImage from 'figma:asset/080f77819a4fbe17c378938467469eb55bd49802.png';
 
+const backgroundImageUrl = 
+'https://news.gsu.edu/files/2024/08/20190814_MLB_Science_Center_2_night_061.jpg';
+
+// declare module '*.jpg' {
+//   const value: string;
+//   export default value;
+// }
 interface HomePageProps {
   onNavigate: (page: string) => void;
 }
@@ -40,23 +46,30 @@ export function HomePage({ onNavigate }: HomePageProps) {
   ];
 
   return (
-    <main
-  className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 overflow-hidden"
->
-  {/* Blurred Background Image */}
+  <main className = "font-poppins relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 overflow-hidden">
+  {/*Background Image */}
   <div
-    className="absolute inset-0 -z-10 blur-md opacity-50"
+    className="absolute inset-0 z-0 blur-[10px]"
     style={{
-      backgroundImage: `url(${backgroundImage})`,
+      backgroundImage: `url(${backgroundImageUrl})`,
       backgroundSize: "cover",
       backgroundPosition: "center",
     }}
   />
 
+  <div className= "absolute inset-0 z-0 bg-black/60 backdrop-blur-sm" />
+
+  <div className="relative z-10">
+
   {/* Hero Section */}
-  <div className="text-center mb-12">
-    <h1 className="text-black mb-4">Welcome to GSU Commuter Hub</h1>
-    <p className="text-gray-600 max-w-2xl mx-auto">
+  <div className="text-left mb-12">
+    <h1
+      className="text-white font-bold mb-4 font-poppins"
+      style={{ fontSize: 'clamp(3rem, 6vw, 4rem)', lineHeight: 1.1 }}
+    > Welcome to
+      <br></br> GSU Commuters Net
+    </h1>
+    <p className="text-lg sm:text-xl text-white max-w-2xl">
       Your one-stop resource for finding study spots, connecting with other commuters, 
       and making the most of your time on campus.
     </p>
@@ -69,40 +82,24 @@ export function HomePage({ onNavigate }: HomePageProps) {
           return (
             <Card
               key={link.page}
-              className="p-6 cursor-pointer hover:shadow-lg transition-shadow duration-300"
+              className="p-6 cursor-pointer hover:shadow-xl transition-all duration-300 hover:scale-[1.02] w-96"
               onClick={() => onNavigate(link.page)}
-            >
-              <div className="flex items-start gap-4">
+                style={{ backgroundColor: 'rgba(255, 255, 255, 0.5)', backdropFilter: 'blur(4px)'}} >
+              <div className="flex items-start gap-3">
                 <div className={`p-3 rounded-lg ${link.color}`}>
                   <Icon className="h-6 w-6" />
                 </div>
                 <div className="flex-1">
-                  <h3 className="text-black mb-2">{link.title}</h3>
+                  <h3 className="font-bold text-xl text-grey-900 mb-1">{link.title}</h3>
                   <p className="text-gray-600">{link.description}</p>
-                  <Button
-                    variant="link"
-                    className="text-blue-600 hover:text-blue-700 px-0 mt-2"
-                  >
-                    Explore →
-                  </Button>
+  
+               </div>
                 </div>
-              </div>
-            </Card>
+              </Card>
           );
         })}
       </div>
-
-      {/* Info Section */}
-      <div className="bg-blue-50 rounded-lg p-8 text-center">
-        <h2 className="text-black mb-3">New to GSU?</h2>
-        <p className="text-gray-700 mb-4">
-          Discover resources designed specifically for commuter students to help you 
-          navigate campus life, find study spots, and connect with peers.
-        </p>
-        <Button className="bg-blue-600 hover:bg-blue-700">
-          Get Started
-        </Button>
-      </div>
-    </main>
+  </div>
+  </main>
   );
 }
