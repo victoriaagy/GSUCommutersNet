@@ -82,7 +82,7 @@ export function HomePage({ onNavigate }: HomePageProps) {
           return (
             <Card
               key={link.page}
-              className="p-6 cursor-pointer hover:shadow-xl transition-all duration-300 hover:scale-[1.02] shadow-md **bg-white/90 backdrop-blur-sm**"
+              className="p-6 cursor-pointer hover:shadow-xl transition-all duration-300 hover:scale-[1.02] shadow-md **bg-white/60 backdrop-blur-sm**"
               onClick={() => onNavigate(link.page)}
             >
               <div className="flex items-start gap-4">
