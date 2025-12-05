@@ -85,12 +85,12 @@ export function HomePage({ onNavigate }: HomePageProps) {
               className="p-6 cursor-pointer hover:shadow-xl transition-all duration-300 hover:scale-[1.02] shadow-md"
               onClick={() => onNavigate(link.page)}
                 style={{ backgroundColor: 'rgba(255, 255, 255, 0.9)', backdropFilter: 'blur(3px)' }} >
-              <div className="flex items-start gap-4">
+              <div className="flex items-start gap-3">
                 <div className={`p-3 rounded-lg ${link.color}`}>
                   <Icon className="h-6 w-6" />
                 </div>
                 <div className="flex-1">
-                  <h3 className="font-semibold text-lg text-black mb-2">{link.title}</h3>
+                  <h3 className="font-bold text-xl text-grey-900 mb-1">{link.title}</h3>
                   <p className="text-gray-600">{link.description}</p>
   
                 </div>
